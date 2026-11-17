@@ -3,13 +3,17 @@ package br.ufpa.refactoring.q3;
 import java.util.List;
 
 public class PayrollCalculator {
-
+// to use:
+// e.baseSalary()
+// 
+	public double overtimeCalculator(Employee e) {
+		double overtime = 0.0;
+    	for (Overtime ot : e.overtimes()) overtime += ot.hours() * ot.hourRate();
+    	return overtime;
+    }
+	
     public double monthlyNetSalary(Employee e) {
-        double base = e.baseSalary();
-        double overtime = 0.0;
-        for (Overtime ot : e.overtimes()) overtime += ot.hours() * ot.hourRate();
-
-        double gross = base + overtime;
+        double gross = e.baseSalary + overtimeCalculator(e);
         double tax;
         if (gross <= 3000) tax = gross * 0.08;
         else if (gross <= 7000) tax = gross * 0.12;
